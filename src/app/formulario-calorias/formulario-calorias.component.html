@@ -10,6 +10,12 @@
 
     <label>Edad (años):</label>
     <input type="number" formControlName="edad" />
+    <div *ngIf="formulario.get('edad')?.invalid && formulario.get('edad')?.touched">
+      <small *ngIf="formulario.get('edad')?.hasError('required')">La edad es obligatoria.</small>
+      <small *ngIf="formulario.get('edad')?.hasError('min')">La edad debe ser al menos 16 años.</small>
+      <small *ngIf="formulario.get('edad')?.hasError('max')">La edad no puede superar los 105 años.</small>
+      <small *ngIf="formulario.get('edad')?.hasError('negativeNumber')">La edad no puede ser un número negativo.</small>
+    </div>
 
     <label>Peso:</label>
     <input
@@ -17,6 +23,12 @@
       formControlName="peso"
       placeholder="En libras o kg según el sistema"
     />
+    <div *ngIf="formulario.get('peso')?.invalid && formulario.get('peso')?.touched">
+      <small *ngIf="formulario.get('peso')?.hasError('required')">El peso es obligatorio.</small>
+      <small *ngIf="formulario.get('peso')?.hasError('min')">El peso mínimo es 40.5 kg.</small>
+      <small *ngIf="formulario.get('peso')?.hasError('max')">El peso máximo es 300 kg.</small>
+      <small *ngIf="formulario.get('peso')?.hasError('negativeNumber')">El peso no puede ser un número negativo.</small>
+    </div>
 
     <label>Altura:</label>
     <input
@@ -24,6 +36,12 @@
       formControlName="altura"
       placeholder="En pulgadas o cm según el sistema"
     />
+    <div *ngIf="formulario.get('altura')?.invalid && formulario.get('altura')?.touched">
+      <small *ngIf="formulario.get('altura')?.hasError('required')">La altura es obligatoria.</small>
+      <small *ngIf="formulario.get('altura')?.hasError('min')">La altura mínima es 140 cm.</small>
+      <small *ngIf="formulario.get('altura')?.hasError('max')">La altura máxima es 225 cm.</small>
+      <small *ngIf="formulario.get('altura')?.hasError('negativeNumber')">La altura no puede ser un número negativo.</small>
+    </div>
 
     <div class="resultado">
       <h2>Calorías diarias: {{ calorias ? calorias.toFixed(2) : '---' }} kcal</h2>

@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl } from '@angular/forms';
+
+export function numerosPositivosValidator(): ValidatorFn {
+  return (control: AbstractControl) => {
+    const value = control.value;
+    return value >= 0 ? null : { negativeNumber: true };
+  };
+}
 
 @Component({
   selector: 'app-formulario-calorias',
@@ -9,6 +16,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
   templateUrl: './formulario-calorias.component.html',
   styleUrl: './formulario-calorias.component.css'
 })
+
 export class FormularioCaloriasComponent {
   formulario: FormGroup;
   calorias: number | null = null;
@@ -16,9 +24,9 @@ export class FormularioCaloriasComponent {
   constructor(private readonly formularioBuilder: FormBuilder) {
     this.formulario = this.formularioBuilder.group({
       sistema: ['imperial', Validators.required],
-      edad: ['', [Validators.required, Validators.min(16), Validators.max(105)], ],
-      peso: ['', [Validators.required, Validators.min(40.5), Validators.max(300)], ],
-      altura: ['', [Validators.required, Validators.min(140), Validators.max(225)], ],
+      edad: ['', [Validators.required, Validators.min(16), Validators.max(105), numerosPositivosValidator()]],
+      peso: ['', [Validators.required, Validators.min(40.5), Validators.max(300), numerosPositivosValidator()]],
+      altura: ['', [Validators.required, Validators.min(140), Validators.max(225), numerosPositivosValidator()]],
     });
 
     this.formulario.valueChanges.subscribe(() => {
