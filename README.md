@@ -1,4 +1,4 @@
-# PruebaTecnicaLogicaAngular
+# PruebaLogicaAngular
 
 Esta es la prueba logica de angular
 
